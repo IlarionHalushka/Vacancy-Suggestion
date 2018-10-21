@@ -1,5 +1,5 @@
 ## Vacancies-Suggestions Back-end part of application
-https://vacancies-suggestions-219018.appspot.com/getBestVacancies   (deployed using Google Cloud App Engine)
+send POST https://vacancies-suggestions-219018.appspot.com/getBestVacancies   (deployed using Google Cloud App Engine)
 
 **Technologies used:**
 
