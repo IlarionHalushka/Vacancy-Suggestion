@@ -4,7 +4,7 @@ module.exports = {
     uri: `mongodb://${process.env.USER}:${process.env.PASSWORD}@ds125953.mlab.com:25953/vacancies-suggestions`,
   },
   serverPort: 8080,
-  apiPrefix: "http://localhost:8080",
+  apiPrefix: "https://vacancies-suggestions-219018.appspot.com",
   keyWordsTop:  [
     "what we expect from our candidate",
     "requirements:",
