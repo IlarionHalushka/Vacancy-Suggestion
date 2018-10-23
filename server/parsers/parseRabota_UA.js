@@ -113,7 +113,12 @@ const saveVacancyInDB = async vacancy => {
   });
   // translate vacancy description
   console.log("vacancyDescription", vacancy.description);
-  vacancy.description = await translateWithTimeout(vacancy.description, 30000);
+  try {
+    vacancy.description = await translateWithTimeout(vacancy.description, 30000);
+  }
+  catch (e) {
+    console.error(e);
+  }
   console.log("vacancy", vacancy);
   console.log("vacancyDescription", vacancy.description);
   vacancy.description = vacancy.description.toLowerCase();
@@ -148,13 +153,20 @@ const removeOldDataFromDB = async () => {
 };
 
 const parseRabota_UA = async () => {
-  const idsOfVacancies = await parseAllVacanciesList();
-  const vacanciesDetails = await parseDetailOfEachVacancy(idsOfVacancies);
-  await saveOnDiskAsJSON(
-    vacanciesDetails,
-    "/home/ninja/Ontraport/RabotaUA/_allVacancies_parseRabotaUA.json"
-  );
-  await removeOldDataFromDB();
+  try {
+    const idsOfVacancies = await parseAllVacanciesList();
+    const vacanciesDetails = await parseDetailOfEachVacancy(idsOfVacancies);
+    // TODO: no need to save it on disk on prod, just for testing or analysing purposes maybe
+    /* await saveOnDiskAsJSON(
+       vacanciesDetails,
+       `${__dirname}_allVacancies_parseRabotaUA.json`
+     );*/
+    // TODO: don't remove old data, because now will only run parsing cron manually
+    // await removeOldDataFromDB();
+  }
+  catch (e) {
+    console.error(e);
+  }
 };
 
 export default parseRabota_UA;

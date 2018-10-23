@@ -5,12 +5,11 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon server/app.js --exec babel-node --presets es2015,stage-2",
-    "webpack-devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8090 --host 0.0.0.0",
+    "webpack-devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public",
     "build": "babel server -d dist --presets es2015,stage-2",
-    "build-web": "babel client -d dist-web --presets es2015,stage-2",
-    "start-prod": "export NODE_ENV=production && export USER=larry && export PASSWORD=amalarry4 && node dist/app.js",
+    "start": "export NODE_ENV=production && export USER=larry && export PASSWORD=amalarry4 && node dist/app.js",
     "cron": "node dist/scheduledTasks/cron.js",
-    "start": "npm run webpack-devserver"
+    "runParsing":  "export NODE_ENV=production && export USER=larry && export PASSWORD=amalarry4 && npm run build && node dist/scheduledTasks/parseRabotaUATaskManualRun.js"
   },
   "engines": {
     "node": ">=8"

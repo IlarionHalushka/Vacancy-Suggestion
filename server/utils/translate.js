@@ -36,9 +36,21 @@ const translate = async (text, opts = {}) => {
 };
 
 const translateWithTimeout = async (textToTranslate, timeout = 15000, opts = {}) => {
-  const textTranslated = await translate(textToTranslate, opts);
-  await new Promise(resolve => setTimeout(resolve, timeout));
-  return textTranslated.toString();
+  try {
+    // translate doesn't allow to send more than 1000 symbols
+    const textChunks = textToTranslate.match(/.{1,2500}/g);
+    let textTranslated;
+    for (let chunk of textChunks) {
+      textTranslated += await translate(chunk, opts);
+    }
+
+    await new Promise(resolve => setTimeout(resolve, timeout));
+    return textTranslated.toString();
+  }
+  catch (e) {
+    console.error(e);
+    return 'no data';
+  }
 };
 
 export default translateWithTimeout;
