@@ -19,9 +19,9 @@ const getBestVacancies = async function getBestVacancies({
   let vacancies = await Vacancy.find(query);
   // prepare stringWithSkillsSeparatedByCommas make it an array
   let counters = [];
-  console.log(skills);
-  console.log(vacancies);
-  console.log(vacancies[0].requirements);
+ // console.log(skills);
+ // console.log(vacancies);
+ // console.log(vacancies[0].requirements);
   for (let i = 0; i < vacancies.length; i++) {
     let counter = 0;
     for (let j = 0; j < vacancies[i].requirements.length; j++) {
@@ -29,10 +29,10 @@ const getBestVacancies = async function getBestVacancies({
         // get each requirement are remove symbols and put each word into array oneVacancyRequirementsArray
         // stringWithOneRequirement example: "Good knowledge of JS." or "1+ years of experience!"
         let stringWithOneRequirement = vacancies[i].requirements[j];
-        console.log("stringWithOneRequirement", stringWithOneRequirement);
+       // console.log("stringWithOneRequirement", stringWithOneRequirement);
         let oneVacancyRequirementsArray = stringWithOneRequirement.split(" ");
         let stringWithSkillLowerCase = skills[k].skill.toLowerCase();
-        console.log("stringWithSkillLowerCase", stringWithSkillLowerCase);
+       // console.log("stringWithSkillLowerCase", stringWithSkillLowerCase);
 
         if (
           oneVacancyRequirementsArray.indexOf(
@@ -43,7 +43,7 @@ const getBestVacancies = async function getBestVacancies({
         }
       }
     }
-    console.log(counter)
+    // console.log(counter)
     if (counter) {
       const city = await City.findOne(
         { _id: vacancies[i].cityId },
@@ -67,7 +67,7 @@ const getBestVacancies = async function getBestVacancies({
   }
   counters = counters.sort(predicateBy("counter"));
   counters.length = counters.length > 20 ? 20 : counters.length;
-  console.log(counters)
+ // console.log(counters)
   return counters;
 };
 

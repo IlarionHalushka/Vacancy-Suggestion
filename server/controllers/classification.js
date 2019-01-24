@@ -54,7 +54,7 @@ const classify = function classify() {
   }
 
   result = result.sort(predicateBy("counter"));
- console.log(result);
+ // console.log(result);
 
 };
 
@@ -71,5 +71,5 @@ function predicateBy(prop){
 
 classify();
 
-// to run the script use node classification.js
+// to run the script use 'node classification.js'
 
