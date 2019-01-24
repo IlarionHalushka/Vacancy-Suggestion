@@ -1,21 +1,21 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const CompanySchema = new mongoose.Schema(
   {
     name: {
-      type: String
+      type: String,
     },
     contactPerson: {
-      type: String
+      type: String,
     },
     contactPhone: {
-      type: String
+      type: String,
     },
     contactURL: {
-      type: String
+      type: String,
     },
     externalId: {
-      type: String
+      type: String,
     },
   },
   {
@@ -29,9 +29,11 @@ const CompanySchema = new mongoose.Schema(
 export const publicFields = [
   'createdAt',
   'updatedAt',
-  "name", "externalId","contactPerson", "contactPhone", "contactURL"
+  'name',
+  'externalId',
+  'contactPerson',
+  'contactPhone',
+  'contactURL',
 ];
 
 export const Company = mongoose.model('Company', CompanySchema, 'companies');
-
-

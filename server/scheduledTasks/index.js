@@ -1,5 +1,3 @@
 const parserRabotaUATask = require('./parseRabotaUATask');
 
-module.exports = [
-  parserRabotaUATask
-];
+module.exports = [parserRabotaUATask];

@@ -3,11 +3,11 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { serverPort } from './config/enviroment';
 
-import getBestVacancies from "./controllers/chooseBestVacanciesForCandidate";
+import getBestVacancies from './controllers/chooseBestVacanciesForCandidate';
 
 const app = express();
 
-app.use( bodyParser.json() );
+app.use(bodyParser.json());
 app.use(cors({ origin: '*' }));
 
 app.post('/getBestVacancies', async (req, res) => {
@@ -16,15 +16,14 @@ app.post('/getBestVacancies', async (req, res) => {
     console.log(req.body.data);
     response = await getBestVacancies(req.body.data);
     res.send(200, response);
-  }
-  catch(e) {
+  } catch (e) {
     console.error(e);
   }
 });
 
-/*const server = app.listen(serverPort, function() {
+/* const server = app.listen(serverPort, function() {
     console.log(`Server is up and running on port ${serverPort}`);
-});*/
+}); */
 
 const server = app.listen(serverPort, () => {
   let host = 'localhost';

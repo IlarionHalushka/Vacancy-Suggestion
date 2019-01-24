@@ -1,12 +1,12 @@
-import parseRabotaUA from "../parsers/parseRabota_UA";
+import parseRabotaUA from '../parsers/parseRabota_UA';
 import {
   removeNotNeededInfoFromVacancyBottom,
   removeNotNeededInfoFromVacancyTop,
-  getRequirementsFromVacancies
-} from "../parsers/parseRequirementsFromDescription";
+  getRequirementsFromVacancies,
+} from '../parsers/parseRequirementsFromDescription';
 
 const parseRabotaUATask = {
-  timePattern: '*/5 * * * *' , //  "0 3 * * *"  At 3:00.   '*/5 * * * *', //  every 5 mins for debug
+  timePattern: '*/5 * * * *', //  "0 3 * * *"  At 3:00.   '*/5 * * * *', //  every 5 mins for debug
 
   async handler() {
     try {
@@ -15,9 +15,9 @@ const parseRabotaUATask = {
       await removeNotNeededInfoFromVacancyBottom();
       await getRequirementsFromVacancies();
     } catch (err) {
-      console.error("Error parsing from rabota ua", err);
+      console.error('Error parsing from rabota ua', err);
     }
-  }
+  },
 };
 
 module.exports = parseRabotaUATask;

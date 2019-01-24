@@ -1,15 +1,15 @@
-import request from "request-promise";
-import { Vacancy, City, Company } from "../models";
-import translateWithTimeout from "../utils/translate";
-import { saveOnDiskAsJSON } from "../utils/utils";
+import request from 'request-promise';
+import { Vacancy, City, Company } from '../models';
+import translateWithTimeout from '../utils/translate';
+import { saveOnDiskAsJSON } from '../utils/utils';
 
 const requestGeneralSearchOpts = {
-  url: "https://api.rabota.ua/vacancy/search",
-  method: "POST",
+  url: 'https://api.rabota.ua/vacancy/search',
+  method: 'POST',
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  }
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
 };
 
 const getTotalNumberOfPages = async bodyQuery => {
@@ -23,13 +23,11 @@ const getTotalNumberOfPages = async bodyQuery => {
 
 const parseAllVacanciesList = async () => {
   let allItemsIds = [];
-  let totalNumberOfPages = await getTotalNumberOfPages(
-    '{ keywords: "qa engineer"}'
-  );
+  let totalNumberOfPages = await getTotalNumberOfPages('{ keywords: "qa engineer"}');
   for (let pageIndex = 0; pageIndex <= totalNumberOfPages; pageIndex++) {
     const dataRequest = await request(
       Object.assign(requestGeneralSearchOpts, {
-        body: `{ keywords: "qa engineer", page: ${pageIndex} }`
+        body: `{ keywords: "qa engineer", page: ${pageIndex} }`,
       })
     );
     const vacanciesOnePage = JSON.parse(await dataRequest).documents;
@@ -50,14 +48,14 @@ const parseDetailOfEachVacancy = async ids => {
   let vacanciesArray = [];
 
   for await (const id of ids) {
-    console.log("parsing", id);
+    console.log('parsing', id);
 
     let vacancyDetails = await request({
       url: `https://api.rabota.ua/vacancy?id=${id}`,
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json"
-      }
+        Accept: 'application/json',
+      },
     });
 
     vacancyDetails = JSON.parse(vacancyDetails);
@@ -80,12 +78,12 @@ const saveCompaniesInDB = async vacancy => {
         contactPerson: vacancy.contactPerson,
         contactPhone: vacancy.contactPhone,
         contactURL: vacancy.contactURL,
-        externalId: vacancy.notebookId
-      }
+        externalId: vacancy.notebookId,
+      },
     },
     { upsert: true }
   );
-  console.log("saved company ");
+  console.log('saved company ');
 };
 
 const saveCityInDB = async vacancy => {
@@ -95,32 +93,31 @@ const saveCityInDB = async vacancy => {
     {
       $set: {
         name: vacancy.cityName,
-        externalId: vacancy.cityId
-      }
+        externalId: vacancy.cityId,
+      },
     },
     { upsert: true }
   );
-  console.log("saved city ");
+  console.log('saved city ');
 };
 
 const saveVacancyInDB = async vacancy => {
   // get ids of company and city
   const { _id: companyId } = await Company.findOne({
-    name: vacancy.companyName
+    name: vacancy.companyName,
   });
   const { _id: cityId } = await City.findOne({
-    externalId: vacancy.cityId
+    externalId: vacancy.cityId,
   });
   // translate vacancy description
-  console.log("vacancyDescription", vacancy.description);
+  console.log('vacancyDescription', vacancy.description);
   try {
     vacancy.description = await translateWithTimeout(vacancy.description, 30000);
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
   }
-  console.log("vacancy", vacancy);
-  console.log("vacancyDescription", vacancy.description);
+  console.log('vacancy', vacancy);
+  console.log('vacancyDescription', vacancy.description);
   vacancy.description = vacancy.description.toLowerCase();
   // save vacancy in DB, avoiding duplicates
   await Vacancy.updateOne(
@@ -132,23 +129,23 @@ const saveVacancyInDB = async vacancy => {
         externalId: vacancy.id,
         companyId: companyId,
         cityId: cityId,
-        dateExternal: vacancy.date
-      }
+        dateExternal: vacancy.date,
+      },
     },
     { upsert: true }
   );
-  console.log("saved vacancy ");
+  console.log('saved vacancy ');
 };
 
 const removeOldDataFromDB = async () => {
   await City.deleteMany({
-    updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) }
+    updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) },
   });
   await Company.deleteMany({
-    updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) }
+    updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) },
   });
   await Vacancy.deleteMany({
-    updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) }
+    updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) },
   });
 };
 
@@ -163,8 +160,7 @@ const parseRabota_UA = async () => {
      );*/
     // TODO: don't remove old data, because now will only run parsing cron manually
     // await removeOldDataFromDB();
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
   }
 };

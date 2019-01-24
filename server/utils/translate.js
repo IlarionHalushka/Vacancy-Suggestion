@@ -23,16 +23,16 @@ const translate = async (text, opts = {}) => {
     ssel: 0,
     tsel: 0,
     kc: 7,
-    q: text
+    q: text,
   };
   url = `${url}?${querystring.stringify(data)}`;
 
   const res = await request({
     url: url,
-    method: 'GET'
+    method: 'GET',
   });
 
-  return safeEval(res)[0][0][0].split(",");
+  return safeEval(res)[0][0][0].split(',');
 };
 
 const translateWithTimeout = async (textToTranslate, timeout = 15000, opts = {}) => {
@@ -46,8 +46,7 @@ const translateWithTimeout = async (textToTranslate, timeout = 15000, opts = {})
 
     await new Promise(resolve => setTimeout(resolve, timeout));
     return textTranslated.toString();
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
     return 'no data';
   }

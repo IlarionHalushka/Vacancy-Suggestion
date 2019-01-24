@@ -1,6 +1,6 @@
-import { Vacancy } from "../models";
-import config from "../config/enviroment";
-import { escapeHTMLTags } from "../utils/utils";
+import { Vacancy } from '../models';
+import config from '../config/enviroment';
+import { escapeHTMLTags } from '../utils/utils';
 
 exports.removeNotNeededInfoFromVacancyTop = async () => {
   let vacancies = await Vacancy.find();
@@ -13,7 +13,7 @@ exports.removeNotNeededInfoFromVacancyTop = async () => {
       if (startIndex !== -1) {
         const obj = {
           ...vacancy,
-          description: vacancy.description.substring(keyWord.length + startIndex)
+          description: vacancy.description.substring(keyWord.length + startIndex),
         };
 
         await Vacancy.updateOne({ _id: vacancy._id }, { $set: obj });
@@ -40,7 +40,7 @@ exports.removeNotNeededInfoFromVacancyBottom = async () => {
     }
     const obj = {
       ...vacancy,
-      description: vacancy.description.substring(0, minStartIndex)
+      description: vacancy.description.substring(0, minStartIndex),
     };
 
     await Vacancy.updateOne({ _id: vacancy._id }, { $set: obj });
@@ -54,28 +54,19 @@ exports.getRequirementsFromVacancies = async () => {
     let description = vacancy.description;
     let requirementsArray = [];
 
-    if (!description.includes("<li>")) {
-      requirementsArray = description.split("<p>");
+    if (!description.includes('<li>')) {
+      requirementsArray = description.split('<p>');
     } else {
-      requirementsArray = description.split("<li>");
+      requirementsArray = description.split('<li>');
     }
 
     // escape not needed symbols
-    requirementsArray = requirementsArray.map(requirement =>
-      escapeHTMLTags(requirement)
-    );
-    requirementsArray = requirementsArray.map(requirement =>
-      requirement.trim()
-    );
-    requirementsArray = requirementsArray.filter(
-      requirement => requirement !== ""
-    );
+    requirementsArray = requirementsArray.map(requirement => escapeHTMLTags(requirement));
+    requirementsArray = requirementsArray.map(requirement => requirement.trim());
+    requirementsArray = requirementsArray.filter(requirement => requirement !== '');
     // update the vacancy requirements
     if (requirementsArray.length > 2) {
-      await Vacancy.updateOne(
-        { _id: vacancy._id },
-        { $set: { requirements: requirementsArray } }
-      );
+      await Vacancy.updateOne({ _id: vacancy._id }, { $set: { requirements: requirementsArray } });
     }
   }
 };

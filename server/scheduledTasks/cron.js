@@ -15,16 +15,13 @@ process.on('uncaughtException', error => {
   process.exit(1);
 });
 
-mongoose.connect(
-  config.mongo.uri,
-  err => {
-    if (err) {
-      console.error(`Error Connection ${config.mongo.uri} :${err.message}`);
-    } else {
-      console.info(`Connection to ${config.mongo.uri} has been successfully established.`);
-    }
-  },
-);
+mongoose.connect(config.mongo.uri, err => {
+  if (err) {
+    console.error(`Error Connection ${config.mongo.uri} :${err.message}`);
+  } else {
+    console.info(`Connection to ${config.mongo.uri} has been successfully established.`);
+  }
+});
 
 /**
  * Server backgroud jobs for parsing

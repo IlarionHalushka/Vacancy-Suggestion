@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from 'fs';
 
 export const saveOnDiskAsJSON = async (content, fileName) => {
   fs.writeFile(fileName, JSON.stringify(content), err => {
@@ -9,54 +9,53 @@ export const saveOnDiskAsJSON = async (content, fileName) => {
   });
 };
 
-export const escapeHTMLTags = (string) => {
-  string = string.replace(/<p>/g, "");
-  string = string.replace(/<\/p>/g, "");
-  string = string.replace(/<\/ p>/g, "");
-  string = string.replace(/<\/li>/g, "");
-  string = string.replace(/<\/ li>/g, "");
-  string = string.replace(/<li>/g, "");
-  string = string.replace(/<b>/g, "");
-  string = string.replace(/<\/b>/g, "");
-  string = string.replace(/<\/ b>/g, "");
-  string = string.replace(/<\/ul>/g, "");
-  string = string.replace(/<\/ ul>/g, "");
-  string = string.replace(/<ul>/g, "");
-  string = string.replace(/&nbsp;/g, "");
-  string = string.replace(/&nbsp/g, "");
-  string = string.replace(/& nbsp/g, "");
-  string = string.replace(/<u>/g, "");
-  string = string.replace(/<\/u>/g, "");
-  string = string.replace(/<\/ u>/g, "");
-  string = string.replace(/\./g, " ");
-  string = string.replace(/:/g, " ");
-  string = string.replace(/;/g, " ");
-  string = string.replace(/!/g, " ");
-  string = string.replace(/'/g, " ");
-  string = string.replace(/"/g, " ");
-  string = string.replace(/\(/g, " ");
-  string = string.replace(/\)/g, " ");
-  string = string.replace(/]/g, " ");
-  string = string.replace(/\[/g, " ");
-  string = string.replace(/{/g, " ");
-  string = string.replace(/}/g, " ");
-  string = string.replace(/\?/g, " ");
-  string = string.replace(/`/g, " ");
-  string = string.replace(/=/g, " ");
-  string = string.replace(/\//g, " ");
-  string = string.replace(/\\/g, " ");
-  string = string.replace(/,/g, " ");
-  string = string.replace(/\./g, " ");
-  string = string.replace(/:/g, " ");
-  string = string.replace(/;/g, " ");
-  string = string.replace(/!/g, " ");
-  string = string.replace(/'/g, " ");
-  string = string.replace(/"/g, " ");
-  string = string.replace(/\(/g, " ");
-  string = string.replace(/\)/g, " ");
-  string = string.replace(/·/g, " ");
+export const escapeHTMLTags = string => {
+  string = string.replace(/<p>/g, '');
+  string = string.replace(/<\/p>/g, '');
+  string = string.replace(/<\/ p>/g, '');
+  string = string.replace(/<\/li>/g, '');
+  string = string.replace(/<\/ li>/g, '');
+  string = string.replace(/<li>/g, '');
+  string = string.replace(/<b>/g, '');
+  string = string.replace(/<\/b>/g, '');
+  string = string.replace(/<\/ b>/g, '');
+  string = string.replace(/<\/ul>/g, '');
+  string = string.replace(/<\/ ul>/g, '');
+  string = string.replace(/<ul>/g, '');
+  string = string.replace(/&nbsp;/g, '');
+  string = string.replace(/&nbsp/g, '');
+  string = string.replace(/& nbsp/g, '');
+  string = string.replace(/<u>/g, '');
+  string = string.replace(/<\/u>/g, '');
+  string = string.replace(/<\/ u>/g, '');
+  string = string.replace(/\./g, ' ');
+  string = string.replace(/:/g, ' ');
+  string = string.replace(/;/g, ' ');
+  string = string.replace(/!/g, ' ');
+  string = string.replace(/'/g, ' ');
+  string = string.replace(/"/g, ' ');
+  string = string.replace(/\(/g, ' ');
+  string = string.replace(/\)/g, ' ');
+  string = string.replace(/]/g, ' ');
+  string = string.replace(/\[/g, ' ');
+  string = string.replace(/{/g, ' ');
+  string = string.replace(/}/g, ' ');
+  string = string.replace(/\?/g, ' ');
+  string = string.replace(/`/g, ' ');
+  string = string.replace(/=/g, ' ');
+  string = string.replace(/\//g, ' ');
+  string = string.replace(/\\/g, ' ');
+  string = string.replace(/,/g, ' ');
+  string = string.replace(/\./g, ' ');
+  string = string.replace(/:/g, ' ');
+  string = string.replace(/;/g, ' ');
+  string = string.replace(/!/g, ' ');
+  string = string.replace(/'/g, ' ');
+  string = string.replace(/"/g, ' ');
+  string = string.replace(/\(/g, ' ');
+  string = string.replace(/\)/g, ' ');
+  string = string.replace(/·/g, ' ');
   return string;
 };
 
 export default saveOnDiskAsJSON;
-
