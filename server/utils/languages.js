@@ -116,7 +116,7 @@ const getCode = desiredLang => {
     return desiredLang;
   }
 
-  let keys = Object.keys(langs).filter(key => {
+  const keys = Object.keys(langs).filter(key => {
     if (typeof langs[key] !== 'string') {
       return false;
     }

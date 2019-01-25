@@ -1,7 +1,6 @@
 import { predicateBy } from '../utils/utils';
-
-const qualifications = require('../../RabotaUA/qualifications+technologies+skills');
-const requirementsJson = require('../../RabotaUA/requirementsTranslated');
+import qualifications from '../../RabotaUA/qualifications+technologies+skills';
+import requirementsJson from '../../RabotaUA/requirementsTranslated';
 
 const classify = function classify() {
   const result = [];
@@ -17,48 +16,28 @@ const classify = function classify() {
         for (let g = 0; g < requirementsJson.length; g++) {
           for (let l = 0; l < requirementsJson[g].requirements.length; l++) {
             let stringWithOneRequirement = requirementsJson[g].requirements[l];
-            stringWithOneRequirement = stringWithOneRequirement.replace(/,/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/\./g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/:/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/;/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/!/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/'/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/"/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/\(/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/\)/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/]/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/\[/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/{/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/}/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/\?/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/`/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/=/g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/\//g, ' ');
-            stringWithOneRequirement = stringWithOneRequirement.replace(/\\/g, ' ');
+            // remove all unnecessary symbols
+            stringWithOneRequirement = stringWithOneRequirement.replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ');
 
-            let oneVacancyRequirementsArray = stringWithOneRequirement.split(' ');
+            const oneVacancyRequirementsArray = stringWithOneRequirement.split(' ');
 
-            if (
-              oneVacancyRequirementsArray.findIndex(
-                item => skill.toLowerCase() === item.toLowerCase()
-              ) !== -1
-            ) {
+            // check that skill is in oneVacancyRequirementsArray
+            const indexOfSkillInRequirement = oneVacancyRequirementsArray.findIndex(
+              item => skill.toLowerCase() === item.toLowerCase()
+            );
+            // if skill is in requirement counter++
+            if (indexOfSkillInRequirement !== -1) {
               counter += 1;
-              //l = requirementsJson[g].requirements.length;
-              //qualifications[i].qualificationsList[j].counter = qualifications[i].qualificationsList[j].counter + 1;
             }
           }
         }
+
         result.push({ skill: skill, counter: counter });
-        //console.log("{\"skill\":\"" + skill + "\", \"counter\":", counter, "},");
       }
-      //result.push({skills: skills, counter: qualifications[i].qualificationsList[j].counter});
-      //console.log("{\"skills\":", skills, ", \"counter\":", qualifications[i].qualificationsList[j].counter, "},");
     }
   }
 
   result.sort(predicateBy('counter'));
-  // console.log(result);
 };
 
 classify();

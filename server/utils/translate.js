@@ -11,7 +11,7 @@ const translate = async (text, opts = {}) => {
   opts.to = languages.getCode(opts.to);
 
   let url = 'https://translate.googleapis.com/translate_a/single';
-  let data = {
+  const data = {
     client: 'gtx',
     sl: opts.from || 'auto',
     tl: opts.to,
@@ -40,7 +40,7 @@ const translateWithTimeout = async (textToTranslate, timeout = 15000, opts = {})
     // translate doesn't allow to send more than 1000 symbols
     const textChunks = textToTranslate.match(/.{1,2500}/g);
     let textTranslated;
-    for (let chunk of textChunks) {
+    for (const chunk of textChunks) {
       textTranslated += await translate(chunk, opts);
     }
 
