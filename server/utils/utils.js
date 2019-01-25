@@ -58,4 +58,14 @@ export const escapeHTMLTags = string => {
   return string;
 };
 
+export const predicateBy = prop => (a, b) => {
+  if (a[prop] < b[prop]) {
+    return 1;
+  }
+  if (a[prop] > b[prop]) {
+    return -1;
+  }
+  return 0;
+};
+
 export default saveOnDiskAsJSON;

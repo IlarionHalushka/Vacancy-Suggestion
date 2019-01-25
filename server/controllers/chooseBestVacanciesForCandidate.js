@@ -1,7 +1,8 @@
 import { City, Company, Vacancy } from '../models';
+import { predicateBy } from '../utils/utils';
 
 const getBestVacancies = async function getBestVacancies({ skills, citiesIds, companiesIds }) {
-  let query = {};
+  const query = {};
   if (citiesIds) {
     query.$and = {
       cityId: { $in: citiesIds },
@@ -12,7 +13,7 @@ const getBestVacancies = async function getBestVacancies({ skills, citiesIds, co
       cityId: { $in: companiesIds },
     };
   }
-  let vacancies = await Vacancy.find(query);
+  const vacancies = await Vacancy.find(query);
   // prepare stringWithSkillsSeparatedByCommas make it an array
   let counters = [];
   // console.log(skills);
@@ -24,14 +25,14 @@ const getBestVacancies = async function getBestVacancies({ skills, citiesIds, co
       for (let k = 0; k < skills.length; k++) {
         // get each requirement are remove symbols and put each word into array oneVacancyRequirementsArray
         // stringWithOneRequirement example: "Good knowledge of JS." or "1+ years of experience!"
-        let stringWithOneRequirement = vacancies[i].requirements[j];
+        const stringWithOneRequirement = vacancies[i].requirements[j];
         // console.log("stringWithOneRequirement", stringWithOneRequirement);
-        let oneVacancyRequirementsArray = stringWithOneRequirement.split(' ');
-        let stringWithSkillLowerCase = skills[k].skill.toLowerCase();
+        const oneVacancyRequirementsArray = stringWithOneRequirement.split(' ');
+        const stringWithSkillLowerCase = skills[k].skill.toLowerCase();
         // console.log("stringWithSkillLowerCase", stringWithSkillLowerCase);
 
         if (oneVacancyRequirementsArray.indexOf(stringWithSkillLowerCase.trim()) !== -1) {
-          counter++;
+          counter += 1;
         }
       }
     }
@@ -59,16 +60,5 @@ const getBestVacancies = async function getBestVacancies({ skills, citiesIds, co
   // console.log(counters)
   return counters;
 };
-
-function predicateBy(prop) {
-  return function(a, b) {
-    if (a[prop] < b[prop]) {
-      return 1;
-    } else if (a[prop] > b[prop]) {
-      return -1;
-    }
-    return 0;
-  };
-}
 
 export default getBestVacancies;
