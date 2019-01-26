@@ -32,7 +32,7 @@ const classify = function classify() {
           }
         }
 
-        skillsFrequency.push({ skill: skill, counter: counter });
+        skillsFrequency.push({ skill, counter });
       }
     }
   }

@@ -28,7 +28,7 @@ const translate = async (text, opts = {}) => {
   url = `${url}?${querystring.stringify(data)}`;
 
   const res = await request({
-    url: url,
+    url,
     method: 'GET',
   });
 

@@ -45,7 +45,7 @@ const getBestVacancies = async function getBestVacancies({ skills, citiesIds, co
         cityId: vacancies[i].cityId,
         companyName: company.name,
         cityName: city.name,
-        counter: counter,
+        counter,
       });
     }
   }
