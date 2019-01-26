@@ -10,6 +10,7 @@ export const saveOnDiskAsJSON = async (content, fileName) => {
 };
 
 export const escapeHTMLTags = string => {
+  string = string.replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, '');
   string = string.replace(/<p>/g, '');
   string = string.replace(/<\/p>/g, '');
   string = string.replace(/<\/ p>/g, '');
@@ -28,33 +29,6 @@ export const escapeHTMLTags = string => {
   string = string.replace(/<u>/g, '');
   string = string.replace(/<\/u>/g, '');
   string = string.replace(/<\/ u>/g, '');
-  string = string.replace(/\./g, ' ');
-  string = string.replace(/:/g, ' ');
-  string = string.replace(/;/g, ' ');
-  string = string.replace(/!/g, ' ');
-  string = string.replace(/'/g, ' ');
-  string = string.replace(/"/g, ' ');
-  string = string.replace(/\(/g, ' ');
-  string = string.replace(/\)/g, ' ');
-  string = string.replace(/]/g, ' ');
-  string = string.replace(/\[/g, ' ');
-  string = string.replace(/{/g, ' ');
-  string = string.replace(/}/g, ' ');
-  string = string.replace(/\?/g, ' ');
-  string = string.replace(/`/g, ' ');
-  string = string.replace(/=/g, ' ');
-  string = string.replace(/\//g, ' ');
-  string = string.replace(/\\/g, ' ');
-  string = string.replace(/,/g, ' ');
-  string = string.replace(/\./g, ' ');
-  string = string.replace(/:/g, ' ');
-  string = string.replace(/;/g, ' ');
-  string = string.replace(/!/g, ' ');
-  string = string.replace(/'/g, ' ');
-  string = string.replace(/"/g, ' ');
-  string = string.replace(/\(/g, ' ');
-  string = string.replace(/\)/g, ' ');
-  string = string.replace(/·/g, ' ');
   return string;
 };
 
