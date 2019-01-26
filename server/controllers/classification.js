@@ -3,7 +3,7 @@ import qualifications from '../../RabotaUA/qualifications+technologies+skills';
 import requirementsJson from '../../RabotaUA/requirementsTranslated';
 
 const classify = function classify() {
-  const result = [];
+  const skillsFrequency = [];
 
   // loop through all qualifications
   for (let i = 0; i < qualifications.length; i++) {
@@ -32,14 +32,14 @@ const classify = function classify() {
           }
         }
 
-        result.push({ skill: skill, counter: counter });
+        skillsFrequency.push({ skill: skill, counter: counter });
       }
     }
   }
 
-  result.sort(predicateBy('counter'));
+  return skillsFrequency.sort(predicateBy('counter'));
 };
 
-classify();
+console.log(classify());
 
 // to run the script use 'node classification.js'
