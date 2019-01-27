@@ -104,12 +104,20 @@ const saveCityInDB = async vacancy => {
 
 const saveVacancyInDB = async vacancy => {
   // get ids of company and city
-  const { _id: companyId } = await Company.findOne({
-    name: vacancy.companyName,
-  });
-  const { _id: cityId } = await City.findOne({
-    externalId: vacancy.cityId,
-  });
+  const [ { _id: companyId }, { _id: cityId } ] = await Promise.all([
+    Company.findOne({
+      name: vacancy.companyName,
+    }),
+    City.findOne({
+      externalId: vacancy.cityId,
+    })
+  ]);
+  // const { _id: companyId } = await Company.findOne({
+  //   name: vacancy.companyName,
+  // });
+  // const { _id: cityId } = await City.findOne({
+  //   externalId: vacancy.cityId,
+  // });
   // translate vacancy description
   console.log('vacancyDescription', vacancy.description);
   try {

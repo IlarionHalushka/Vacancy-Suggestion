@@ -3,12 +3,12 @@ import config from '../config/enviroment';
 import { escapeHTMLTags } from '../utils/utils';
 
 exports.removeNotNeededInfoFromVacancyTop = async () => {
-  let vacancies = await Vacancy.find();
-  let arrayWithKeyWords = config.keyWordsTop;
+  const vacancies = await Vacancy.find();
+  const arrayWithKeyWords = config.keyWordsTop;
 
   for (const vacancy of vacancies) {
     for (const keyWord of arrayWithKeyWords) {
-      let startIndex = vacancy.description.indexOf(keyWord);
+      const startIndex = vacancy.description.indexOf(keyWord);
 
       if (startIndex !== -1) {
         const obj = {
@@ -24,15 +24,15 @@ exports.removeNotNeededInfoFromVacancyTop = async () => {
 };
 
 exports.removeNotNeededInfoFromVacancyBottom = async () => {
-  let vacancies = await Vacancy.find();
-  let arrayWithKeyWords = config.keyWordsBottom;
+  const vacancies = await Vacancy.find();
+  const arrayWithKeyWords = config.keyWordsBottom;
 
   for (const vacancy of vacancies) {
     // minStartIndex - the lower the index is the better the vacancies will be cut
     let minStartIndex = vacancy.description.length;
 
     for (const keyWord of arrayWithKeyWords) {
-      let startIndex = vacancy.description.indexOf(keyWord);
+      const startIndex = vacancy.description.indexOf(keyWord);
 
       if (startIndex < minStartIndex && startIndex !== -1) {
         minStartIndex = startIndex;
@@ -48,10 +48,10 @@ exports.removeNotNeededInfoFromVacancyBottom = async () => {
 };
 
 exports.getRequirementsFromVacancies = async () => {
-  let vacancies = await Vacancy.find();
+  const vacancies = await Vacancy.find();
 
   for (const vacancy of vacancies) {
-    let description = vacancy.description;
+    const { description } = vacancy;
     let requirementsArray = [];
 
     if (!description.includes('<li>')) {
