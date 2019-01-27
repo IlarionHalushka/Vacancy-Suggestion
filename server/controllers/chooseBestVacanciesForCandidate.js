@@ -10,10 +10,11 @@ const getBestVacancies = async function getBestVacancies({ skills, citiesIds, co
   }
   if (companiesIds) {
     query.$and = {
-      cityId: { $in: companiesIds },
+      companyId: { $in: companiesIds },
     };
   }
   const vacancies = await Vacancy.find(query);
+
   // prepare stringWithSkillsSeparatedByCommas make it an array
   let counters = [];
   for (let i = 0; i < vacancies.length; i++) {
