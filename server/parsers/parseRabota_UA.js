@@ -1,7 +1,6 @@
 import request from 'request-promise';
 import { Vacancy, City, Company } from '../models';
 import translateWithTimeout from '../utils/translate';
-import { saveOnDiskAsJSON } from '../utils/utils';
 
 const requestGeneralSearchOpts = {
   url: 'https://api.rabota.ua/vacancy/search',
@@ -22,8 +21,8 @@ const getTotalNumberOfPages = async bodyQuery => {
 };
 
 const parseAllVacanciesList = async () => {
-  let allItemsIds = [];
-  let totalNumberOfPages = await getTotalNumberOfPages('{ keywords: "qa engineer"}');
+  const allItemsIds = [];
+  const totalNumberOfPages = await getTotalNumberOfPages('{ keywords: "qa engineer"}');
   for (let pageIndex = 0; pageIndex <= totalNumberOfPages; pageIndex++) {
     const dataRequest = await request(
       Object.assign(requestGeneralSearchOpts, {
@@ -45,7 +44,7 @@ const parseAllVacanciesList = async () => {
 };
 
 const parseDetailOfEachVacancy = async ids => {
-  let vacanciesArray = [];
+  const vacanciesArray = [];
 
   for await (const id of ids) {
     console.log('parsing', id);
@@ -61,9 +60,11 @@ const parseDetailOfEachVacancy = async ids => {
     vacancyDetails = JSON.parse(vacancyDetails);
     vacanciesArray.push(vacancyDetails);
 
-    await saveCompaniesInDB(vacancyDetails);
-    await saveCityInDB(vacancyDetails);
-    await saveVacancyInDB(vacancyDetails);
+    await Promise.all([
+      saveCompaniesInDB(vacancyDetails),
+      saveCityInDB(vacancyDetails),
+      saveVacancyInDB(vacancyDetails),
+    ]);
   }
   return vacanciesArray;
 };
@@ -127,8 +128,8 @@ const saveVacancyInDB = async vacancy => {
         name: vacancy.name,
         description: vacancy.description,
         externalId: vacancy.id,
-        companyId: companyId,
-        cityId: cityId,
+        companyId,
+        cityId,
         dateExternal: vacancy.date,
       },
     },
@@ -138,15 +139,17 @@ const saveVacancyInDB = async vacancy => {
 };
 
 const removeOldDataFromDB = async () => {
-  await City.deleteMany({
-    updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) },
-  });
-  await Company.deleteMany({
-    updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) },
-  });
-  await Vacancy.deleteMany({
-    updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) },
-  });
+  await Promise.all([
+    City.deleteMany({
+      updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) },
+    }),
+    Company.deleteMany({
+      updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) },
+    }),
+    Vacancy.deleteMany({
+      updatedAt: { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) },
+    }),
+  ]);
 };
 
 const parseRabota_UA = async () => {
@@ -157,7 +160,7 @@ const parseRabota_UA = async () => {
     /* await saveOnDiskAsJSON(
        vacanciesDetails,
        `${__dirname}_allVacancies_parseRabotaUA.json`
-     );*/
+     ); */
     // TODO: don't remove old data, because now will only run parsing cron manually
     // await removeOldDataFromDB();
   } catch (e) {

@@ -32,11 +32,10 @@ const getBestVacancies = async function getBestVacancies({ skills, citiesIds, co
       }
     }
     if (counter) {
-      const city = await City.findOne({ _id: vacancies[i].cityId }, { name: 1, externalId: 1 });
-      const company = await Company.findOne(
-        { _id: vacancies[i].companyId },
-        { name: 1, externalId: 1 }
-      );
+      const [city, company] = await Promise.all([
+        City.findOne({ _id: vacancies[i].cityId }, { name: 1, externalId: 1 }),
+        Company.findOne({ _id: vacancies[i].companyId }, { name: 1, externalId: 1 }),
+      ]);
       counters.push({
         vacancyId: vacancies[i].externalId,
         vacancyName: vacancies[i].name,
