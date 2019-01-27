@@ -28,7 +28,8 @@ app.post('/getBestVacancies', async (req, res) => {
 const server = app.listen(serverPort, () => {
   let host = 'localhost';
   let port = serverPort;
-  if (process.env.NODE_ENV == 'production') {
+
+  if (process.env.NODE_ENV === 'production') {
     host = server.address().address;
     port = server.address().port;
   }
