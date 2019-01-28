@@ -127,4 +127,4 @@ const getCode = desiredLang => {
   return keys[0] || false;
 };
 
-module.exports.getCode = getCode;
+export default { getCode };
