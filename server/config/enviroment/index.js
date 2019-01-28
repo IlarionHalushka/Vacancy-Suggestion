@@ -1,17 +1,9 @@
-import development from './development';
-import test from './test';
+import developmentConfig from './development';
+import testConfig from './test';
 
-let environmentPath;
+const detectEnvironment = (env) => ({
+  'test': testConfig,
+  'dev': developmentConfig,
+}[env]);
 
-switch (process.env.NODE_ENV) {
-  case 'development':
-    environmentPath = development;
-    break;
-  case 'test':
-    environmentPath = test;
-    break;
-  default:
-    environmentPath = development;
-}
-
-module.exports = environmentPath;
+export default detectEnvironment(process.env.NODE_ENV);

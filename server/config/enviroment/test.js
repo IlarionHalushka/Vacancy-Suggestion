@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   mongo: {
     //  uri: 'mongodb://localhost:27017/vacanciesSuggestion-dev',
     uri: `mongodb://${process.env.USER}:${

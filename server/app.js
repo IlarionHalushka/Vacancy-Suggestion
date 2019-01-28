@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { serverPort } from './config/enviroment';
+import { default as config } from './config/enviroment';
 
 import getBestVacancies from './controllers/chooseBestVacanciesForCandidate';
 
@@ -25,9 +25,9 @@ app.post('/getBestVacancies', async (req, res) => {
     console.log(`Server is up and running on port ${serverPort}`);
 }); */
 
-const server = app.listen(serverPort, () => {
+const server = app.listen(config.serverPort, () => {
   let host = 'localhost';
-  let port = serverPort;
+  let port = config.serverPort;
 
   if (process.env.NODE_ENV === 'production') {
     host = server.address().address;
