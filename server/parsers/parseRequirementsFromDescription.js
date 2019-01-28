@@ -2,7 +2,7 @@ import { Vacancy } from '../models';
 import config from '../config/enviroment';
 import { escapeHTMLTags } from '../utils/utils';
 
-exports.removeNotNeededInfoFromVacancyTop = async () => {
+export const removeNotNeededInfoFromVacancyTop = async () => {
   const vacancies = await Vacancy.find();
   const arrayWithKeyWords = config.keyWordsTop;
 
@@ -23,7 +23,7 @@ exports.removeNotNeededInfoFromVacancyTop = async () => {
   }
 };
 
-exports.removeNotNeededInfoFromVacancyBottom = async () => {
+export const removeNotNeededInfoFromVacancyBottom = async () => {
   const vacancies = await Vacancy.find();
   const arrayWithKeyWords = config.keyWordsBottom;
 
@@ -47,7 +47,7 @@ exports.removeNotNeededInfoFromVacancyBottom = async () => {
   }
 };
 
-exports.getRequirementsFromVacancies = async () => {
+export const getRequirementsFromVacancies = async () => {
   const vacancies = await Vacancy.find();
 
   for (const vacancy of vacancies) {
