@@ -23,6 +23,7 @@ const getTotalNumberOfPages = async bodyQuery => {
 const parseAllVacanciesList = async () => {
   const allItemsIds = [];
   const totalNumberOfPages = await getTotalNumberOfPages('{ keywords: "qa engineer"}');
+
   for (let pageIndex = 0; pageIndex <= totalNumberOfPages; pageIndex++) {
     const dataRequest = await request(
       Object.assign(requestGeneralSearchOpts, {
@@ -30,14 +31,11 @@ const parseAllVacanciesList = async () => {
       })
     );
     const vacanciesOnePage = JSON.parse(await dataRequest).documents;
+
     // push to allItemsIds only active vacancies
     vacanciesOnePage.forEach(vacancy => {
-      if (vacancy.isActive) {
-        allItemsIds.push(vacancy.id);
-      }
+      if (vacancy.isActive) allItemsIds.push(vacancy.id);
     });
-
-    console.log(`pageIndex ${pageIndex} is fetched`);
   }
 
   return allItemsIds;
@@ -47,8 +45,6 @@ const parseDetailOfEachVacancy = async ids => {
   const vacanciesArray = [];
 
   for await (const id of ids) {
-    console.log('parsing', id);
-
     let vacancyDetails = await request({
       url: `https://api.rabota.ua/vacancy?id=${id}`,
       method: 'GET',
@@ -71,7 +67,7 @@ const parseDetailOfEachVacancy = async ids => {
 
 const saveCompaniesInDB = async vacancy => {
   // save company in DB avoiding duplicates
-  await Company.updateOne(
+  return Company.updateOne(
     { name: vacancy.companyName },
     {
       $set: {
@@ -84,12 +80,11 @@ const saveCompaniesInDB = async vacancy => {
     },
     { upsert: true }
   );
-  console.log('saved company ');
 };
 
 const saveCityInDB = async vacancy => {
   // save city in DB, avoiding duplicates
-  await City.updateOne(
+  return City.updateOne(
     { externalId: vacancy.cityId },
     {
       $set: {
@@ -99,7 +94,6 @@ const saveCityInDB = async vacancy => {
     },
     { upsert: true }
   );
-  console.log('saved city ');
 };
 
 const saveVacancyInDB = async vacancy => {
@@ -112,24 +106,16 @@ const saveVacancyInDB = async vacancy => {
       externalId: vacancy.cityId,
     })
   ]);
-  // const { _id: companyId } = await Company.findOne({
-  //   name: vacancy.companyName,
-  // });
-  // const { _id: cityId } = await City.findOne({
-  //   externalId: vacancy.cityId,
-  // });
-  // translate vacancy description
-  console.log('vacancyDescription', vacancy.description);
+
   try {
     vacancy.description = await translateWithTimeout(vacancy.description, 30000);
   } catch (e) {
     console.error(e);
   }
-  console.log('vacancy', vacancy);
-  console.log('vacancyDescription', vacancy.description);
+
   vacancy.description = vacancy.description.toLowerCase();
   // save vacancy in DB, avoiding duplicates
-  await Vacancy.updateOne(
+  return Vacancy.updateOne(
     { externalId: vacancy.id },
     {
       $set: {
@@ -143,7 +129,6 @@ const saveVacancyInDB = async vacancy => {
     },
     { upsert: true }
   );
-  console.log('saved vacancy ');
 };
 
 const removeOldDataFromDB = async () => {
