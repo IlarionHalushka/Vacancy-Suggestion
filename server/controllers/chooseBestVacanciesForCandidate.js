@@ -39,7 +39,7 @@ const getBestVacancies = async function getBestVacancies({ skills, citiesIds, co
     return searchResults;
   }
 
-  // if skills were provided
+  // if skills were provided fetch all vacancies
   const vacancies = await Vacancy.find(query);
 
   // prepare skills: toLowerCase and trim
@@ -89,7 +89,7 @@ const getBestVacancies = async function getBestVacancies({ skills, citiesIds, co
       cityId: vacancies[index].cityId,
       companyName: company.name,
       cityName: city.name,
-      ...searchResults[i]
+      ...searchResults[i],
     };
   }
 

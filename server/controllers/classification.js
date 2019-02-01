@@ -9,22 +9,18 @@ const classify = function classify() {
   for (let i = 0; i < qualifications.length; i++) {
     for (let j = 0; j < qualifications[i].qualificationsList.length; j++) {
       for (let k = 0; k < qualifications[i].qualificationsList[j].value.length; k++) {
-        const skill = qualifications[i].qualificationsList[j].value[k];
+        const skill = qualifications[i].qualificationsList[j].value[k].toLowerCase();
         let counter = 0;
 
         // loop through all requirements in vacancies
         for (let g = 0; g < requirementsJson.length; g++) {
           for (let l = 0; l < requirementsJson[g].requirements.length; l++) {
-            let stringWithOneRequirement = requirementsJson[g].requirements[l];
             // remove all unnecessary symbols
-            stringWithOneRequirement = stringWithOneRequirement.replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ');
+            const stringWithOneRequirement = requirementsJson[g].requirements[l].replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ');
 
-            const oneVacancyRequirementsArray = stringWithOneRequirement.split(' ');
+            // check that skill is in stringWithOneRequirement
+            const indexOfSkillInRequirement = stringWithOneRequirement.toLowerCase().indexOf(skill);
 
-            // check that skill is in oneVacancyRequirementsArray
-            const indexOfSkillInRequirement = oneVacancyRequirementsArray.findIndex(
-              item => skill.toLowerCase() === item.toLowerCase()
-            );
             // if skill is in requirement counter++
             if (indexOfSkillInRequirement !== -1) {
               counter += 1;
