@@ -5,6 +5,16 @@ import requirementsJson from '../../RabotaUA/requirementsTranslated';
 const classify = function classify() {
   const skillsFrequency = [];
 
+  // prepare all requirements in vacancies
+  // remove symbols and make lowercase
+  for (let g = 0; g < requirementsJson.length; g++) {
+    for (let l = 0; l < requirementsJson[g].requirements.length; l++) {
+      requirementsJson[g].requirements[l] = requirementsJson[g].requirements[l]
+        .replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ')
+        .toLowerCase();
+    }
+  }
+
   // loop through all qualifications
   for (let i = 0; i < qualifications.length; i++) {
     for (let j = 0; j < qualifications[i].qualificationsList.length; j++) {
@@ -15,11 +25,9 @@ const classify = function classify() {
         // loop through all requirements in vacancies
         for (let g = 0; g < requirementsJson.length; g++) {
           for (let l = 0; l < requirementsJson[g].requirements.length; l++) {
-            // remove all unnecessary symbols
-            const stringWithOneRequirement = requirementsJson[g].requirements[l].replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ');
-
             // check that skill is in stringWithOneRequirement
-            const indexOfSkillInRequirement = stringWithOneRequirement.toLowerCase().indexOf(skill);
+            const indexOfSkillInRequirement = requirementsJson[g].requirements[l]
+              .indexOf(skill);
 
             // if skill is in requirement counter++
             if (indexOfSkillInRequirement !== -1) {
