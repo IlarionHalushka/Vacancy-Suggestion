@@ -26,17 +26,13 @@ const classify = function classify() {
         for (let g = 0; g < requirementsJson.length; g++) {
           for (let l = 0; l < requirementsJson[g].requirements.length; l++) {
             // check that skill is in stringWithOneRequirement
-            const indexOfSkillInRequirement = requirementsJson[g].requirements[l]
-              .indexOf(skill);
+            const indexOfSkillInRequirement = requirementsJson[g].requirements[l].indexOf(skill);
 
-            // if skill is in requirement counter++
-            if (indexOfSkillInRequirement !== -1) {
-              counter += 1;
-            }
+            if (indexOfSkillInRequirement !== -1) counter += 1;
           }
         }
 
-        skillsFrequency.push({ skill, counter });
+        if (counter) skillsFrequency.push({ skill, counter });
       }
     }
   }
