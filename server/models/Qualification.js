@@ -29,4 +29,4 @@ export const publicFields = [
   'updatedAt',
 ];
 
-export const Vacancy = mongoose.model('Qualification', QualificationSchema, 'qualifications');
+export const Qualification = mongoose.model('Qualification', QualificationSchema, 'qualifications');

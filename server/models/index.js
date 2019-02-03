@@ -10,3 +10,4 @@ export const connection = mongoose.connect(config.mongo.uri, error => {
 export { Vacancy } from './Vacancy';
 export { City } from './City';
 export { Company } from './Company';
+export { Qualification } from './Qualification';

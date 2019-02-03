@@ -1,0 +1,398 @@
+[
+  {
+    "type": "preparation",
+    "qualificationsList": [
+      {
+        "value": [
+          "fundamentals",
+          "types",
+          "theory",
+          "termins",
+          "terminology",
+          "techniques",
+          "methodology",
+          "methodologies"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "estimation",
+          "estimate",
+          "estimations"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "case",
+          "testcase",
+          "TC",
+          "cases",
+          "testcases",
+          "test-case",
+          "test-cases",
+          "cases"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "check-list",
+          "checklist",
+          "check-lists",
+          "checklists"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "procedure",
+          "testprocedure",
+          "test-prosedure",
+          "test-prosedures",
+          "testprocedures"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "suite",
+          "testsuite",
+          "test-suite",
+          "test-suites",
+          "testsuites"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "reporting",
+          "report",
+          "reports",
+          "Jira",
+          "Redmine",
+          "Zephyr",
+          "Testlink",
+          "Test-link",
+          "EasyQA",
+          "Testrail",
+          "Testrails",
+          "Confluence"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "model",
+          "models"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "SDLC",
+          "lifecycle",
+          "life-cycle",
+          "Agile",
+          "Scrum",
+          "Kanban",
+          "Waterfall",
+          "V-model",
+          "XP"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "preparation",
+          "preparations"
+        ],
+        "counter": 0
+      }
+    ]
+  },
+  {
+    "type": "execution",
+    "qualificationsList": [
+      {
+        "value": [
+          "DB",
+          "DBs",
+          "SQL",
+          "MySQL",
+          "PostgreSQL",
+          "MSsql",
+          "MongoDB",
+          "NoSQL",
+          "Mongo",
+          "Postgre",
+          "Maria",
+          "Oracle",
+          "Database"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "Java",
+          "JS",
+          "javascript",
+          "nodejs",
+          "C#",
+          ".net",
+          "python",
+          "ruby",
+          "kotlin",
+          "C++",
+          "Swift",
+          "Objective-C",
+          "programming",
+          "PHP"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "CI",
+          "Integration",
+          "Jenkins",
+          "Travis",
+          "TravisCI",
+          "Docker",
+          "CircleCI",
+          "Circle"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "Unit",
+          "API",
+          "UI"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "HTML ",
+          "CSS",
+          "selectors",
+          "x-path",
+          "xpath",
+          "selector"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "VCS",
+          "git",
+          "github",
+          "gitlab",
+          "bitbucket",
+          "bit-bucket",
+          "SVN"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "review",
+          "reviews"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "framework",
+          "frameworks",
+          "PageObject",
+          "PO",
+          "Selenide",
+          "Selenium",
+          "Protractor",
+          "Appium",
+          "Calabash",
+          "espreso"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "Jasmine",
+          "Mocha",
+          "Junit",
+          "TestNG",
+          "Pytest",
+          "Nunit",
+          "Jest"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "Rest",
+          "rest-assured",
+          "supertest",
+          "postman",
+          "soapui"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "tank",
+          "jmeter",
+          "performance",
+          "LoadRunner"
+        ],
+        "counter": 0
+      }
+    ]
+  },
+  {
+    "type": "process",
+    "qualificationsList": [
+      {
+        "value": [
+          "requirements"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "strategy",
+          "strategies"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "Recruiting",
+          "recruit"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "training",
+          "train",
+          "teach",
+          "mentor"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "plan",
+          "testplan",
+          "test-plan",
+          "testplans",
+          "test-plans",
+          "plans"
+        ],
+        "counter": 0
+      }
+    ]
+  },
+  {
+    "type": "additional",
+    "qualificationsList": [
+      {
+        "value": [
+          "JSON",
+          "XML",
+          "structures",
+          "structure"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "algorithm",
+          "algorithms"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "HTTP",
+          "https"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "network",
+          "networking",
+          "TCP/IP",
+          "TCP",
+          "IP",
+          "QUIC",
+          "UDP"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "English",
+          "intermediate",
+          "upper-intermediate",
+          "upperintermediate",
+          "advanced",
+          "pre-intermediate",
+          "preintermediate",
+          "German"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "Linux",
+          "Windows",
+          "Unix",
+          "Mac",
+          "Android",
+          "IOS"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "OOP",
+          "pattern",
+          "patterns"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "MS",
+          "BS",
+          "bachelor",
+          "master",
+          "master's",
+          "education",
+          "BSC"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "ISTQB",
+          "certification"
+        ],
+        "counter": 0
+      },
+      {
+        "value": [
+          "Bash",
+          "Shell",
+          "ssh"
+        ],
+        "counter": 0
+      }
+    ]
+  }
+]
