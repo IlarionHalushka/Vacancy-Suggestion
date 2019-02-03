@@ -62,7 +62,10 @@ export const getRequirementsFromVacancies = async () => {
 
     // escape not needed symbols
     requirementsArray = requirementsArray.map(requirement => escapeHTMLTags(requirement));
-    requirementsArray = requirementsArray.map(requirement => requirement.trim());
+    requirementsArray = requirementsArray.map(requirement =>
+      requirement.replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ')
+    );
+    requirementsArray = requirementsArray.map(requirement => requirement.trim().toLowerCase());
     requirementsArray = requirementsArray.filter(requirement => requirement !== '');
     // update the vacancy requirements
     if (requirementsArray.length > 2) {

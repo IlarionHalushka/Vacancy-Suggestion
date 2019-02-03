@@ -2,16 +2,7 @@ import { Qualification, Vacancy } from '../models';
 
 const classify = async () => {
   const qualifications = await Qualification.find({}, { _id: 1, value: 1 });
-  const vacancies = await Vacancy.find({}, { requirements: 1 });
-
-  // TODO when adding requirements to db make them already lower case and remove symbols
-  // prepare all requirements in vacancies
-  // remove symbols and make lowercase
-  const requirements = vacancies.map(vacancy =>
-    vacancy.requirements.map(oneRequirement =>
-      oneRequirement.replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ').toLowerCase()
-    )
-  );
+  const requirements = await Vacancy.find({}, { requirements: 1 });
 
   // loop through all qualifications
   for (let i = 0; i < qualifications.length; i++) {
