@@ -1,14 +1,14 @@
-import { Qualification } from '../models';
-import requirementsJson from '../../RabotaUA/requirementsTranslated';
+import { Qualification, Vacancy } from '../models';
 
 const classify = async () => {
-  const qualifications = await Qualification.find();
+  const qualifications = await Qualification.find({}, { _id: 1, value: 1 });
+  const vacancies = await Vacancy.find({}, { requirements: 1 });
 
   // TODO when adding requirements to db make them already lower case and remove symbols
   // prepare all requirements in vacancies
   // remove symbols and make lowercase
-  const requirements = requirementsJson.map(reqs =>
-    reqs.requirements.map(oneRequirement =>
+  const requirements = vacancies.map(vacancy =>
+    vacancy.requirements.map(oneRequirement =>
       oneRequirement.replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ').toLowerCase()
     )
   );
