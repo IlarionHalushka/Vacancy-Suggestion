@@ -7,29 +7,35 @@ const classify = function classify() {
 
   // prepare all requirements in vacancies
   // remove symbols and make lowercase
-  for (let g = 0; g < requirementsJson.length; g++) {
-    for (let l = 0; l < requirementsJson[g].requirements.length; l++) {
-      requirementsJson[g].requirements[l] = requirementsJson[g].requirements[l]
-        .replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ')
-        .toLowerCase();
-    }
-  }
+  const requirements = requirementsJson.map(reqs =>
+    reqs.requirements.map(oneRequirement =>
+      oneRequirement.replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ').toLowerCase()
+    )
+  );
 
   // loop through all qualifications
   for (let i = 0; i < qualifications.length; i++) {
     for (let j = 0; j < qualifications[i].qualificationsList.length; j++) {
       for (let k = 0; k < qualifications[i].qualificationsList[j].value.length; k++) {
         let counter = 0;
-
         // loop through all requirements in vacancies
-        for (let g = 0; g < requirementsJson.length; g++) {
-          for (let l = 0; l < requirementsJson[g].requirements.length; l++) {
+        for (let g = 0; g < requirements.length; g++) {
+          for (let l = 0; l < requirements[g].requirements.length; l++) {
             // check that skill is in stringWithOneRequirement
-            if (requirementsJson[g].requirements[l].indexOf(qualifications[i].qualificationsList[j].value[k].toLowerCase()) !== -1) counter += 1;
+            if (
+              requirements[g].requirements[l].indexOf(
+                qualifications[i].qualificationsList[j].value[k].toLowerCase()
+              ) !== -1
+            )
+              counter += 1;
           }
         }
 
-        if (counter) skillsFrequency.push({ skill: qualifications[i].qualificationsList[j].value[k], counter });
+        if (counter)
+          skillsFrequency.push({
+            skill: qualifications[i].qualificationsList[j].value[k],
+            counter,
+          });
       }
     }
   }
