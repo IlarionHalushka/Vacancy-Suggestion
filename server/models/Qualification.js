@@ -5,8 +5,8 @@ const QualificationSchema = new mongoose.Schema(
     section: {
       type: String,
     },
-    values: {
-      type: Array,
+    value: {
+      type: String,
     },
     counter: {
       type: Number,
