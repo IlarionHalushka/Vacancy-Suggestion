@@ -11,7 +11,8 @@ const classify = async () => {
     for (let g = 0; g < requirements.length; g++) {
       for (let l = 0; l < requirements[g].length; l++) {
         // check that skill is in stringWithOneRequirement
-        if (requirements[g][l].indexOf(qualifications[i].value) !== -1) counter += 1;
+        const oneRequirement = requirements[g][l].split(' ');
+        if (oneRequirement.indexOf(qualifications[i].value) !== -1) counter += 1;
       }
     }
     if (counter)
@@ -20,6 +21,9 @@ const classify = async () => {
 
   console.log('Finished classification');
 };
+
+// TODO get qualifications sorted by counter, only with counter > 0
+export const qualifications = async () => Qualification.find();
 
 export default classify;
 // classify();

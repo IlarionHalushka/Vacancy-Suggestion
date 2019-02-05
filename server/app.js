@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { default as config } from './config/enviroment';
 
 import getBestVacancies from './controllers/chooseBestVacanciesForCandidate';
+import { qualifications } from './controllers/classification';
 
 const app = express();
 
@@ -21,9 +22,15 @@ app.post('/getBestVacancies', async (req, res) => {
   }
 });
 
-/* const server = app.listen(serverPort, function() {
-    console.log(`Server is up and running on port ${serverPort}`);
-}); */
+app.get('/qualifications', async (req, res) => {
+  try {
+    const response = await qualifications();
+    res.status(200).send(response);
+  } catch (e) {
+    res.status(500).send(e.message);
+    console.error(e);
+  }
+});
 
 const server = app.listen(config.serverPort, () => {
   let host = 'localhost';
