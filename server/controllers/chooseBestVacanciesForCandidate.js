@@ -25,16 +25,12 @@ const getVacancies = async (count, query) => {
 };
 
 const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
-  const query = {};
+  const query = { $and: [] };
   if (citiesIds) {
-    query.$and = {
-      cityId: { $in: citiesIds },
-    };
+    query.$and.push({ cityId: { $in: citiesIds } });
   }
   if (companiesIds) {
-    query.$and = {
-      companyId: { $in: companiesIds },
-    };
+    query.$and.push({ companyId: { $in: companiesIds } });
   }
 
   const searchResults = [];
