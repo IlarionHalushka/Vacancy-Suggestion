@@ -23,6 +23,8 @@ const getVacancies = async (count, query) => {
   return Promise.all(searchResults);
 };
 
+const formatSkills = async skills => skills.map(({ skill }) => skill.toLowerCase().trim());
+
 const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
   // define filters by city and company
   const query = { $and: [] };
@@ -44,9 +46,7 @@ const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
   const vacancies = await Vacancy.find(query);
 
   // prepare skills: toLowerCase and trim
-  for (let k = 0; k < skills.length; k++) {
-    skills[k].skill = skills[k].skill.toLowerCase().trim();
-  }
+  const skillsFormatted = formatSkills(skills);
 
   // prepare stringWithSkillsSeparatedByCommas make it an array
   for (let i = 0; i < vacancies.length; i++) {
@@ -54,8 +54,8 @@ const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
     for (let j = 0; j < vacancies[i].requirements.length; j++) {
       const stringWithOneRequirement = vacancies[i].requirements[j];
 
-      for (let k = 0; k < skills.length; k++) {
-        if (stringWithOneRequirement.includes(skills[k].skill)) {
+      for (let k = 0; k < skillsFormatted.length; k++) {
+        if (stringWithOneRequirement.includes(skillsFormatted[k])) {
           counter += 1;
         }
       }
