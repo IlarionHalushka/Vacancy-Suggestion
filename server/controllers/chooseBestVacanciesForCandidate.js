@@ -3,28 +3,28 @@ import { predicateBy } from '../utils/utils';
 
 const getVacancies = async (count, query) => {
   const vacancies = await Vacancy.find(query).limit(count);
-  const searchResults = [];
 
-  for (let i = 0; i < vacancies.length; i++) {
+  const searchResults = vacancies.map(async vacancy => {
     const [city, company] = await Promise.all([
-      City.findOne({ _id: vacancies[i].cityId }, { name: 1, externalId: 1 }),
-      Company.findOne({ _id: vacancies[i].companyId }, { name: 1, externalId: 1 }),
+      City.findOne({ _id: vacancy.cityId }, { name: 1, externalId: 1 }),
+      Company.findOne({ _id: vacancy.companyId }, { name: 1, externalId: 1 }),
     ]);
     searchResults.push({
-      vacancyId: vacancies[i].externalId,
-      vacancyName: vacancies[i].name,
-      companyId: vacancies[i].companyId,
+      vacancyId: vacancy.externalId,
+      vacancyName: vacancy.name,
+      companyId: vacancy.companyId,
       companyExternalId: company.externalId,
-      cityId: vacancies[i].cityId,
+      cityId: vacancy.cityId,
       companyName: company.name,
       cityName: city.name,
     });
-  }
+  });
 
-  return searchResults;
+  return Promise.all(searchResults);
 };
 
 const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
+  // define filters by city and company
   const query = { $and: [] };
   if (citiesIds) {
     query.$and.push({ cityId: { $in: citiesIds } });
