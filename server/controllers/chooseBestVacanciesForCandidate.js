@@ -55,7 +55,7 @@ const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
       const stringWithOneRequirement = vacancies[i].requirements[j];
 
       for (let k = 0; k < skills.length; k++) {
-        if (stringWithOneRequirement.indexOf(skills[k].skill) !== -1) {
+        if (stringWithOneRequirement.includes(skills[k].skill)) {
           counter += 1;
         }
       }
