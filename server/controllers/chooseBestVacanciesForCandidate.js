@@ -1,7 +1,30 @@
 import { City, Company, Vacancy } from '../models';
 import { predicateBy } from '../utils/utils';
 
-const getBestVacancies = async function getBestVacancies({ skills, citiesIds, companiesIds }) {
+const getVacancies = async (count, query) => {
+  const vacancies = await Vacancy.find(query).limit(count);
+  const searchResults = [];
+
+  for (let i = 0; i < vacancies.length; i++) {
+    const [city, company] = await Promise.all([
+      City.findOne({ _id: vacancies[i].cityId }, { name: 1, externalId: 1 }),
+      Company.findOne({ _id: vacancies[i].companyId }, { name: 1, externalId: 1 }),
+    ]);
+    searchResults.push({
+      vacancyId: vacancies[i].externalId,
+      vacancyName: vacancies[i].name,
+      companyId: vacancies[i].companyId,
+      companyExternalId: company.externalId,
+      cityId: vacancies[i].cityId,
+      companyName: company.name,
+      cityName: city.name,
+    });
+  }
+
+  return searchResults;
+};
+
+const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
   const query = {};
   if (citiesIds) {
     query.$and = {
@@ -18,25 +41,7 @@ const getBestVacancies = async function getBestVacancies({ skills, citiesIds, co
 
   // if no skills were provided in request body return any 20 Vacancies
   if (!skills) {
-    const vacancies = await Vacancy.find(query).limit(20);
-
-    for (let i = 0; i < vacancies.length; i++) {
-      const [city, company] = await Promise.all([
-        City.findOne({ _id: vacancies[i].cityId }, { name: 1, externalId: 1 }),
-        Company.findOne({ _id: vacancies[i].companyId }, { name: 1, externalId: 1 }),
-      ]);
-      searchResults.push({
-        vacancyId: vacancies[i].externalId,
-        vacancyName: vacancies[i].name,
-        companyId: vacancies[i].companyId,
-        companyExternalId: company.externalId,
-        cityId: vacancies[i].cityId,
-        companyName: company.name,
-        cityName: city.name,
-      });
-    }
-
-    return searchResults;
+    return getVacancies(20, query);
   }
 
   // if skills were provided fetch all vacancies

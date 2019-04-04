@@ -61,6 +61,7 @@ export const getRequirementsFromVacancies = async () => {
     }
 
     // escape not needed symbols
+
     requirementsArray = requirementsArray.map(requirement => escapeHTMLTags(requirement));
     requirementsArray = requirementsArray.map(requirement =>
       requirement.replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ')
