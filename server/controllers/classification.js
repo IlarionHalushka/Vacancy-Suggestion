@@ -22,8 +22,8 @@ const classify = async () => {
   console.log('Finished classification');
 };
 
-// TODO get qualifications sorted by counter, only with counter > 0
-export const qualifications = async () => Qualification.find();
+// TODO get qualifications sorted by counter
+export const qualifications = async () => Qualification.find({ counter: { $gte: 1 }});
 
 export default classify;
 // classify();
