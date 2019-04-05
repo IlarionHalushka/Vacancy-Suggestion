@@ -1,8 +1,10 @@
 import { Qualification, Vacancy } from '../models';
 
 const classify = async () => {
-  const qualifications = await Qualification.find({}, { _id: 1, value: 1 });
-  const requirements = await Vacancy.find({}, { requirements: 1 });
+  const [qualifications, requirements] = Promise.all([
+    await Qualification.find({}, { _id: 1, value: 1 }),
+    await Vacancy.find({}, { requirements: 1 }),
+  ]);
 
   // loop through all qualifications
   for (let i = 0; i < qualifications.length; i++) {
