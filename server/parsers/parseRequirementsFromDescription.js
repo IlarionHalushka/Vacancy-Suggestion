@@ -54,6 +54,7 @@ export const getRequirementsFromVacancies = async () => {
     const { description } = vacancy;
     let requirementsArray = [];
 
+    // vacancies are either divided in paragraphs with <p> or with <li>
     if (!description.includes('<li>')) {
       requirementsArray = description.split('<p>');
     } else {
@@ -61,14 +62,16 @@ export const getRequirementsFromVacancies = async () => {
     }
 
     // escape not needed symbols
+    requirementsArray = requirementsArray
+      .map(requirement =>
+        escapeHTMLTags(requirement)
+          .replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ')
+          .trim()
+          .toLowerCase()
+      )
+      .filter(requirement => requirement !== '');
 
-    requirementsArray = requirementsArray.map(requirement => escapeHTMLTags(requirement));
-    requirementsArray = requirementsArray.map(requirement =>
-      requirement.replace(/[~@#$%^&*|<>,.:;!'`"(){}?=+/\\]/g, ' ')
-    );
-    requirementsArray = requirementsArray.map(requirement => requirement.trim().toLowerCase());
-    requirementsArray = requirementsArray.filter(requirement => requirement !== '');
-    // update the vacancy requirements
+    // update the vacancy requirements for requirements with at least 2 words
     if (requirementsArray.length > 2) {
       await Vacancy.updateOne({ _id: vacancy._id }, { $set: { requirements: requirementsArray } });
     }
