@@ -1,0 +1,61 @@
+[
+  {
+    "type": "preparation",
+    "typeValues": [
+      {
+        "subtype": "Preparation of work assignment",
+        "subtypeValues": [
+          "The main terminology for testing ",
+          "The language in which the technical documentation of the product is written, at a level sufficient to read the technical documentation",
+          "Examine the provided work task algorithm",
+          "Formulate questions to create a clear algorithm for performing work tasks",
+          "Analyze the work assignment algorithm for insufficient or redundant actions",
+          "Work independently with information"
+        ]
+      },
+      {
+        "subtype": "Preparation of test data in accordance with the work assignment",
+        "subtypeValues": [
+          "Basic terms and abbreviations used in the documentation and accepted in the organization The",
+          "Russian language and the language on which the technical documentation of the product is written, at a level sufficient to read the technical documentation",
+          "Understanding the formats of data representation",
+          "Work with test data preparation tools Work",
+          "independently with information"
+        ]
+      },
+      {
+        "subtype": "Running the Testing Process",
+        "subtypeValues": [
+          "Normative, methodical materials on testing and testing of software products ",
+          "Basics of work in the operating system in which testing is conducted, databases The",
+          "fundamentals of the theory of algorithms and automata, the foundations of discrete mathematics in the amount of received professional education",
+          "Fundamentals of programming",
+          "Ability to execute the algorithm without deviations.",
+          "Work with the test execution tool.",
+          "Create a report on the work assignment.",
+          "Use the special software for automated testing (if necessary) at the run level of the ready tests.",
+          "Work in team with other testing specialists and developers"
+        ]
+      },
+      {
+        "subtype": "Registration of defects in the control system (databases)",
+        "subtypeValues": [
+          "Defect management systems",
+          "The life cycle of a defect",
+          "Specify the defect",
+          "Describe the defect"
+        ]
+      },
+      {
+        "subtype": "Testing of accompanying documentation for compliance with customer requirements",
+        "subtypeValues": [
+          "Normative, methodical materials on testing and testing of software products",
+          "Basics of work in the operating system in which the testing is performed, databases",
+          "Read the technical documentation",
+          "Ability to execute the algorithm without deviations",
+          "Create a competent and complete report on the performance of the work assignment"
+        ]
+      }
+    ]
+  }
+]
