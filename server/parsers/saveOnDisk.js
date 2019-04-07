@@ -1,19 +1,19 @@
 import { Vacancy } from '../models';
 import { saveOnDiskAsJSON } from '../utils/utils';
 
-
-const saveVacanciesOnDisk = async () => {
+const saveOnDisk = async (name) => {
   const requirements = await Vacancy.find();
 
    await saveOnDiskAsJSON(
      requirements,
-      `../../RabotaUA/vacancies_${new Date().toISOString()}.json`
+      `../../RabotaUA/${name}_${new Date().toISOString()}.json`
     );
 };
 
-export default saveVacanciesOnDisk();
+export default saveOnDisk;
+// export default saveOnDisk('qualifications');
 
-// saveVacanciesOnDisk();
+// saveOnDisk('vacancies');
 
 // to run the script use
 // export NODE_ENV=test && export USER=larry && export PASSWORD=amalarry4

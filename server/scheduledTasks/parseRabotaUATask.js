@@ -4,8 +4,7 @@ import {
   removeNotNeededInfoFromVacancyTop,
   getRequirementsFromVacancies,
 } from '../parsers/parseRequirementsFromDescription';
-import saveVacanciesOnDisk from '../parsers/saveVacanciesOnDisk';
-import saveQualificationsOnDisk from '../parsers/saveQualificationsOnDisk';
+import saveOnDisk from '../parsers/saveOnDisk';
 import classify from '../controllers/classification';
 
 const parseRabotaUATask = {
@@ -17,9 +16,9 @@ const parseRabotaUATask = {
       await removeNotNeededInfoFromVacancyTop();
       await removeNotNeededInfoFromVacancyBottom();
       await getRequirementsFromVacancies();
-      await saveVacanciesOnDisk();
+      await saveOnDisk('vacancies');
       await classify();
-      await saveQualificationsOnDisk();
+      await saveOnDisk('qualifications');
     } catch (err) {
       console.error('Error parsing from rabota ua', err);
     }
