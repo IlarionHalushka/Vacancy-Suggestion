@@ -1,13 +1,12 @@
 import { Qualification } from '../models';
 import { saveOnDiskAsJSON } from '../utils/utils';
 
-
 const saveQualificationsOnDisk = async () => {
   const requirements = await Qualification.find();
 
    await saveOnDiskAsJSON(
      requirements,
-      `../../RabotaUA/qualifications_${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}.json`
+      `../../RabotaUA/qualifications_${new Date().toISOString()}.json`
     );
 };
 
