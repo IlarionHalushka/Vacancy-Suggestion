@@ -7,7 +7,7 @@ const saveVacanciesOnDisk = async () => {
 
    await saveOnDiskAsJSON(
      requirements,
-      `../../RabotaUA/vacancies_${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}.json`
+      `../../RabotaUA/vacancies_${new Date().toISOString()}.json`
     );
 };
 
