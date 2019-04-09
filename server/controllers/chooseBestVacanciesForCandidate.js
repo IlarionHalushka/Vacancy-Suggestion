@@ -1,27 +1,29 @@
 import { City, Company, Vacancy } from '../models';
 import { predicateBy } from '../utils/utils';
 
-const getVacancies = async (count, query) => {
-  const vacancies = await Vacancy.find(query).limit(count);
-
-  const searchResults = vacancies.map(async vacancy => {
-    const [city, company] = await Promise.all([
-      City.findOne({ _id: vacancy.cityId }, { name: 1, externalId: 1 }),
-      Company.findOne({ _id: vacancy.companyId }, { name: 1, externalId: 1 }),
-    ]);
-    return {
-      vacancyId: vacancy.externalId,
-      vacancyName: vacancy.name,
-      companyId: vacancy.companyId,
-      companyExternalId: company.externalId,
-      cityId: vacancy.cityId,
-      companyName: company.name,
-      cityName: city.name,
-    };
-  });
-
-  return Promise.all(searchResults);
-};
+const getVacancies = async (query, count = Number.MAX_SAFE_INTEGER) =>
+  Vacancy.aggregate([
+    { $match: query },
+    {
+      $lookup: {
+        from: 'cities',
+        localField: 'cityId',
+        foreignField: '_id',
+        as: 'city',
+      },
+    },
+    { $unwind: { path: '$city', preserveNullAndEmptyArrays: true } },
+    {
+      $lookup: {
+        from: 'companies',
+        localField: 'companyId',
+        foreignField: '_id',
+        as: 'company',
+      },
+    },
+    { $unwind: { path: '$company', preserveNullAndEmptyArrays: true } },
+    { $limit: count },
+  ]);
 
 const formatSkills = skills => skills.map(({ skill }) => skill.toLowerCase().trim());
 
@@ -41,11 +43,11 @@ const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
 
   // if no skills were provided in request body return any 20 Vacancies
   if (!skills) {
-    return getVacancies(20, query);
+    return getVacancies(query, 20);
   }
 
   // if skills were provided fetch all vacancies
-  const vacancies = await Vacancy.find(query);
+  const vacancies = await getVacancies(query);
 
   // prepare skills: toLowerCase and trim
   const skillsFormatted = formatSkills(skills);
@@ -53,12 +55,15 @@ const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
   // prepare stringWithSkillsSeparatedByCommas make it an array
   for (let i = 0; i < vacancies.length; i++) {
     let counter = 0;
-    for (let j = 0; j < vacancies[i].requirements.length; j++) {
-      const stringWithOneRequirement = vacancies[i].requirements[j];
 
-      for (let k = 0; k < skillsFormatted.length; k++) {
-        if (stringWithOneRequirement.includes(skillsFormatted[k])) {
-          counter += 1;
+    if (vacancies[i].requirements && vacancies[i].requirements.length) {
+      for (let j = 0; j < vacancies[i].requirements.length; j++) {
+        const stringWithOneRequirement = vacancies[i].requirements[j];
+
+        for (let k = 0; k < skillsFormatted.length; k++) {
+          if (stringWithOneRequirement.includes(skillsFormatted[k])) {
+            counter += 1;
+          }
         }
       }
     }
