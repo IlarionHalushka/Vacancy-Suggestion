@@ -23,7 +23,7 @@ const getVacancies = async (count, query) => {
   return Promise.all(searchResults);
 };
 
-const formatSkills = async skills => skills.map(({ skill }) => skill.toLowerCase().trim());
+const formatSkills = skills => skills.map(({ skill }) => skill.toLowerCase().trim());
 
 const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
   // define filters by city and company
