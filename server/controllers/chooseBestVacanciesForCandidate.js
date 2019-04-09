@@ -9,7 +9,7 @@ const getVacancies = async (count, query) => {
       City.findOne({ _id: vacancy.cityId }, { name: 1, externalId: 1 }),
       Company.findOne({ _id: vacancy.companyId }, { name: 1, externalId: 1 }),
     ]);
-    searchResults.push({
+    return {
       vacancyId: vacancy.externalId,
       vacancyName: vacancy.name,
       companyId: vacancy.companyId,
@@ -17,7 +17,7 @@ const getVacancies = async (count, query) => {
       cityId: vacancy.cityId,
       companyName: company.name,
       cityName: city.name,
-    });
+    };
   });
 
   return Promise.all(searchResults);
@@ -34,6 +34,8 @@ const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
   if (companiesIds) {
     query.$and.push({ companyId: { $in: companiesIds } });
   }
+
+  if (!query.$and.length) delete query.$and;
 
   const searchResults = [];
 
