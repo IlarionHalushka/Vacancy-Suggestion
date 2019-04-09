@@ -70,7 +70,7 @@ const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
 
     if (counter) {
       searchResults.push({
-        index: i,
+        ...vacancies[i],
         counter,
       });
     }
@@ -79,27 +79,6 @@ const getBestVacancies = async ({ skills, citiesIds, companiesIds }) => {
   // get top 20 vacancies that matched skills
   searchResults.sort(predicateBy('counter'));
   searchResults.length = searchResults.length > 20 ? 20 : searchResults.length;
-
-  // prepare searchResults by adding additional info
-  for (let i = 0; i < searchResults.length; i++) {
-    const { index } = searchResults[i];
-
-    const [city, company] = await Promise.all([
-      City.findOne({ _id: vacancies[index].cityId }, { name: 1, externalId: 1 }),
-      Company.findOne({ _id: vacancies[index].companyId }, { name: 1, externalId: 1 }),
-    ]);
-
-    searchResults[i] = {
-      vacancyId: vacancies[index].externalId,
-      vacancyName: vacancies[index].name,
-      companyId: vacancies[index].companyId,
-      companyExternalId: company.externalId,
-      cityId: vacancies[index].cityId,
-      companyName: company.name,
-      cityName: city.name,
-      ...searchResults[i],
-    };
-  }
 
   return searchResults;
 };
