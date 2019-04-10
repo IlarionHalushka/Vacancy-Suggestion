@@ -13,8 +13,7 @@ const classify = async () => {
     for (let g = 0; g < requirements.length; g++) {
       for (let l = 0; l < requirements[g].length; l++) {
         // check that skill is in stringWithOneRequirement
-        const oneRequirement = requirements[g][l].split(' ');
-        if (oneRequirement.includes(qualifications[i].value)) counter += 1;
+        if (requirements[g][l].includes(qualifications[i].value)) counter += 1;
       }
     }
     if (counter)
