@@ -1,4 +1,4 @@
-import { City, Company, Vacancy } from '../models';
+import { Vacancy } from '../models';
 import { predicateBy } from '../utils/utils';
 
 const getVacancies = async (query, count = Number.MAX_SAFE_INTEGER) =>
@@ -23,6 +23,17 @@ const getVacancies = async (query, count = Number.MAX_SAFE_INTEGER) =>
     },
     { $unwind: { path: '$company', preserveNullAndEmptyArrays: true } },
     { $limit: count },
+    {
+      $group: {
+        _id: null,
+        records: {
+          $push: '$$ROOT',
+        },
+        total: {
+          $first: '$$ROOT.total',
+        },
+      },
+    },
   ]);
 
 const formatSkills = skills => skills.map(({ skill }) => skill.toLowerCase().trim());
