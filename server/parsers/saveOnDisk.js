@@ -1,13 +1,15 @@
+import path from 'path';
 import { Vacancy } from '../models';
 import { saveOnDiskAsJSON } from '../utils/utils';
 
-const saveOnDisk = async (name) => {
+const saveOnDisk = async name => {
   const requirements = await Vacancy.find();
 
-   await saveOnDiskAsJSON(
-     requirements,
-      `../../RabotaUA/${name}_${new Date().toISOString()}.json`
-    );
+  await saveOnDiskAsJSON(
+    requirements,
+    // or change to ../../..
+    path.join(__dirname, '../..', `RabotaUA/${name}_${new Date().toISOString()}.json`)
+  );
 };
 
 export default saveOnDisk;
