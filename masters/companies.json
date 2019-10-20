@@ -1,0 +1,26 @@
+[
+  {
+    "company": "cni",
+    "type": 1,
+    "salary": 0.75,
+    "location": 0.11
+  },
+  {
+    "company": "codmeotion",
+    "type": 0.5,
+    "salary": 0.66,
+    "location": 0.24
+  },
+  {
+    "company": "udk",
+    "type": 0,
+    "salary": 0.44,
+    "location": 0.65
+  },
+  {
+    "company": "other",
+    "type": 1,
+    "salary": 0.44,
+    "location": 0.65
+  }
+]
