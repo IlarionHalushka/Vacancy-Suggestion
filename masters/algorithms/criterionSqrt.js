@@ -1,4 +1,4 @@
-const criterions = require('../criterions');
+const criterions = require('../data/criterions');
 
 module.exports = company => {
   const value = Object.keys(criterions).reduce(

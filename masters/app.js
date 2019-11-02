@@ -1,4 +1,4 @@
-const companies = require('./companies');
+const companies = require('./data/companies');
 const sortArrayBy = require('./utils/sortArrayBy');
 const merge = require('./utils/merge');
 const { BEST_VACANCIES_ARRAY_LENGTH } = require('./constants');
