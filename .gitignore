@@ -67,3 +67,8 @@ typings/
 
 # package json lock
 package-lock.json
+
+# output files
+masters/results/*
+
+ssssss.html
